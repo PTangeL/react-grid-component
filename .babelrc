@@ -1,0 +1,53 @@
+{
+  "plugins": [
+    "babel-plugin-transform-class-properties",
+    [
+      "babel-plugin-transform-object-rest-spread",
+      {
+        "useBuiltIns": true
+      }
+    ],
+    [
+      "babel-plugin-transform-react-jsx",
+      {
+        "useBuiltIns": true
+      }
+    ],
+    [
+      "babel-plugin-transform-runtime",
+      {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true
+      }
+    ],
+  ],
+  "presets": [
+    "es2015",
+    "stage-0",
+    "react"
+  ],
+  "env": {
+    "commonjs": {
+      "plugins": [
+        ["transform-es2015-modules-commonjs", { "loose": true }]
+      ]
+    },
+    "rollup": {
+      "plugins": [
+        "external-helpers"
+      ]
+    },
+    "test": {
+      "plugins": [
+        [
+          "babel-plugin-webpack-loaders",
+          {
+            "config": "./webpack.config.test.js",
+            "verbose": true,
+          }
+        ]
+      ]
+    }
+  }
+}
