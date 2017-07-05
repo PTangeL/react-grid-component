@@ -53,8 +53,7 @@ function getColClassNames (props, styles) {
   return Object.keys(props)
     .filter(key => classMap[key])
     .map(
-      key => getClass(isInteger(props[key]) ? `${classMap[key]}-${props[key]}` : classMap[key]),
-      styles
+      key => getClass(isInteger(props[key]) ? `${classMap[key]}-${props[key]}` : classMap[key], styles)
     )
     .concat(extraClasses)
 }

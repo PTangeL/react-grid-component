@@ -1,32 +1,33 @@
-// import expect from 'expect';
-import React from 'react';
-import TestUtils from 'react-addons-test-utils';
-import Grid from '../../src/components/Grid';
-import style from 'flexboxgrid';
+import React from 'react'
+import { shallow, mount } from 'enzyme'
+import styles from 'flexboxgrid/dist/flexboxgrid.css'
 
-const renderer = TestUtils.createRenderer();
+import Grid from '../../src/components/Grid'
+
+const context = { flexboxgrid: { styles }}
 
 describe('Grid', () => {
   it('Should add "container" class', () => {
-    renderer.render(<Grid />);
-    expect(renderer.getRenderOutput().props.className).toEqual(style.container);
+    const wrapper = shallow(<Grid />, { context })
+
+    expect(wrapper.props().className).toEqual(styles.container)
   });
 
   it('Should not replace class', () => {
-    renderer.render(<Grid className="foo" />);
-    const { className } = renderer.getRenderOutput().props;
+    const wrapper = shallow(<Grid className="foo" />,  { context })
+    const { className } = wrapper.props()
 
-    expect(className).toContain('foo');
-    expect(className).toContain(style.container);
+    expect(className).toContain('foo')
+    expect(className).toContain(styles.container)
   });
 
   it('Should add "container-fluid" class if "fluid" property is true', () => {
-    renderer.render(<Grid fluid />);
-    expect(renderer.getRenderOutput().props.className).toEqual(style['container-fluid']);
-  });
+    const wrapper = shallow(<Grid fluid />, { context })
+    expect( wrapper.props().className).toEqual(styles['container-fluid'])
+  })
 
   it('Should support custom tag name', () => {
-    renderer.render(<Grid tagName="section" />);
-    expect(renderer.getRenderOutput().type).toBe('section');
-  });
-});
+    const wrapper = shallow(<Grid tagName="section" />, { context })
+    expect(wrapper.type()).toBe('section')
+  })
+})

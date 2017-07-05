@@ -1,29 +1,38 @@
-// import expect from 'expect';
 import React from 'react';
-import TestUtils from 'react-addons-test-utils';
+// import TestUtils from 'react-addons-test-utils';
 import Col, { getColumnProps } from '../../src/components/Col';
 import GridProvider from '../../src/components/GridProvider';
-import style from 'flexboxgrid';
-// import styles from 'flexboxgrid/dist/flexboxgrid.css';
+//import style from 'flexboxgrid';
+import styles from 'flexboxgrid/dist/flexboxgrid.css';
+import { shallow, mount } from 'enzyme'
 
-const renderer = TestUtils.createRenderer();
+console.log('stylesaaa', styles)
+// const renderer = TestUtils.createRenderer();
+const context = { flexboxgrid: { styles }}
 
 describe('Col', () => {
   it('Should add classes equals to props', () => {
+    /*
     renderer.render(
       <GridProvider>
         <Col xs={12} sm={8} md={6} lg={4} />
       </GridProvider>
     );
+    */
+    const wrapper = shallow(<Col xs={12} sm={8} md={6} lg={4} />, { context })
 
-    const { type, props: { className } } = renderer.getRenderOutput();
+    expect(wrapper.props().className).toEqual(styles.container)
+
+    const { className } = wrapper.props()
+    const type = wrapper.type()
+
     expect(type).toBe('div');
     expect(className).toContain(style['col-xs-12']);
     expect(className).toContain(style['col-sm-8']);
     expect(className).toContain(style['col-md-6']);
     expect(className).toContain(style['col-lg-4']);
   });
-
+/*
   it('Computes the column properties', () => {
     expect(getColumnProps({ className: 'test', xs: 12, unknown: 'foo' }, styles)).toEqual({
       unknown: 'foo', className: `${style['col-xs-12']} test`
@@ -74,4 +83,5 @@ describe('Col', () => {
 
     expect(renderer.getRenderOutput().type).toBe('li');
   });
+  */
 });

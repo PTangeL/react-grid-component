@@ -21,7 +21,7 @@
     "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
     "clean": "rimraf lib dist es coverage",
     "prepublish": "npm run clean && npm run build",
-    "test": "cross-env BABEL_ENV=test BABEL_DISABLE_CACHE=1 node scripts/test.js --env=jsdom",
+    "test": "BABEL_DISABLE_CACHE=1 node scripts/test.js --env=jsdom",
     "coverage": "node scripts/test.js --coverage",
     "eslint": "./node_modules/.bin/esw --color -w --ext .jsx,.js src/**",
     "prettier": "./node_modules/.bin/prettier-standard --trailing-comma es5 --single-quote --write src/**/*.js src/**/*.jsx",
@@ -60,6 +60,7 @@
     "cross-env": "^5.0.0",
     "css-loader": "^0.28.4",
     "dotenv": "^4.0.0",
+    "enzyme": "^2.9.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-babel": "^6.0.0",
@@ -75,6 +76,7 @@
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-watch": "^3.0.1",
+    "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.1",
     "fs": "^0.0.1-security",
     "fs-extra": "^2.1.2",
@@ -84,10 +86,12 @@
     "jest-css-modules": "^1.1.0",
     "lint-staged": "^3.4.0",
     "path": "^0.12.7",
+    "postcss-loader": "^2.0.6",
     "prettier": "^0.22.0",
     "prettier-standard": "^3.0.1",
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.6.0",
+    "react-dom": "^15.6.1",
     "react-test-renderer": "^15.5.4",
     "rimraf": "^2.6.1",
     "rollup": "^0.41.6",
@@ -100,7 +104,7 @@
     "style-loader": "^0.18.2",
     "uglify-es": "^3.0.15",
     "url-loader": "^0.5.8",
-    "webpack": "^3.0.0"
+    "webpack": "^2.6.1"
   },
   "lint-staged": {
     "*.js": [
@@ -116,6 +120,9 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
     ],
+    "transform": {
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
+    },
     "testMatch": [
       "<rootDir>/src/**/?(*.)(spec|test).js?(x)",
       "<rootDir>/test/**/?(*.)(spec|test).js?(x)"
@@ -123,9 +130,6 @@
     "testEnvironment": "node",
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
-    ],
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web"
-    }
+    ]
   }
 }

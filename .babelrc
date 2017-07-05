@@ -43,7 +43,7 @@
         [
           "babel-plugin-webpack-loaders",
           {
-            "config": "./webpack.config.test.js",
+            "config": "./config/webpack.config.test.js",
             "verbose": true,
           }
         ]
